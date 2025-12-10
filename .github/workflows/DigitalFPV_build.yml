@@ -20,12 +20,10 @@ jobs:
           # FPV
           - ssc30kq_fpv
           - ssc338q_fpv
-          - ssc378qe_fpv
 
           # DigitalFPV
           - ssc30kq_digitalfpv
           - ssc338q_digitalfpv
-          - ssc378qe_digitalfpv
 
     steps:
       - name: Checkout source

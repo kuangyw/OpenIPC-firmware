@@ -47,11 +47,13 @@ jobs:
             for soc in $SIGMASTAR $ALLWINNER; do
               create $soc $soc lite
               create $soc $soc ultimate
+              create $soc $soc fpv
             done
 
             for soc in $INGENIC; do
               create $soc ${soc:0:3} lite
               create $soc ${soc:0:3} ultimate
+              create $soc ${soc:0:3} fpv
             done
 
       - name: Upload

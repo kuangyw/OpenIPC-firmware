@@ -31,7 +31,7 @@ jobs:
           - {"platform": "ssc338q", "release": "fpv_8812cu"}
           - {"platform": "ssc338q", "release": "fpv_8812au_8812eu"}
           - {"platform": "ssc338q", "release": "rubyfpv"}
-          - {"platform": "ssc377d", "release": "fpv"}
+          # - {"platform": "ssc377d", "release": "fpv"}
           - {"platform": "ssc377de", "release": "fpv"}
           
         # platform:

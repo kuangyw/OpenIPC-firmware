@@ -81,7 +81,7 @@ jobs:
 
           mkdir -p /tmp/ccache
           ln -s /tmp/ccache ${HOME}/.ccache
-          make BOARD=${{matrix.platform}}_${{matrix.release}}
+          make BOARD=${{matrix.platform}}
 
           TIME=$(date -d @${SECONDS} +%M:%S)
           echo TIME=${TIME} >> ${GITHUB_ENV}
@@ -101,7 +101,7 @@ jobs:
 
           # Generate bin firmware
           pushd output/images
-          platform=${{matrix.platform}}_${{matrix.release}}
+          platform=${{matrix.platform}}
           soc=${platform%_*}
 
           uboot=u-boot-$soc-nor.bin
@@ -157,7 +157,7 @@ jobs:
         if: github.event_name != 'release'
         uses: actions/upload-artifact@v4
         with:
-          name: firmware-${{matrix.platform}}
+          name: firmware-${{matrix.platform}}_${{matrix.release}}
           path: output/images/openipc*nor*
 
       - name: Upload release firmware

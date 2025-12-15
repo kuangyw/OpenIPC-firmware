@@ -16,20 +16,30 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform:
-          # FPV
-          - ssc30kq_fpv
-          - ssc338q_fpv
-          - ssc377d_fpv
-          - ssc338q_fpv_8188fu
-          - ssc338q_fpv_8192eu
-          - ssc338q_fpv_8733bu
-          - ssc338q_fpv_8812au_8812eu
-          - ssc338q_fpv_8812cu
+        include:
+          - {"platform": "ssc30kq", "release": "fpv"}
+          - {"platform": "ssc30kq", "release": "digitalfpv"}
+          - {"platform": "ssc338q", "release": "fpv_8733bu"}
+          - {"platform": "ssc338q", "release": "fpv_8188fu"}
+          - {"platform": "ssc338q", "release": "fpv_8192eu"}
+          - {"platform": "ssc338q", "release": "fpv_8812cu"}
+          - {"platform": "ssc338q", "release": "fpv_8812au_8812eu"}
+          - {"platform": "ssc377d", "release": "fpv"}
+          
+        # platform:
+        #   # FPV
+        #   - ssc30kq_fpv
+        #   - ssc338q_fpv
+        #   - ssc377d_fpv
+        #   - ssc338q_fpv_8188fu
+        #   - ssc338q_fpv_8192eu
+        #   - ssc338q_fpv_8733bu
+        #   - ssc338q_fpv_8812au_8812eu
+        #   - ssc338q_fpv_8812cu
 
-          # DigitalFPV
-          - ssc30kq_digitalfpv
-          - ssc338q_digitalfpv
+        #   # DigitalFPV
+        #   - ssc30kq_digitalfpv
+        #   - ssc338q_digitalfpv
 
     steps:
       - name: Checkout source

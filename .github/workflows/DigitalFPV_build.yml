@@ -21,6 +21,11 @@ jobs:
           - ssc30kq_fpv
           - ssc338q_fpv
           - ssc377d_fpv
+          - ssc338q_fpv_8188fu
+          - ssc338q_fpv_8192eu
+          - ssc338q_fpv_8733bu
+          - ssc338q_fpv_8812au_8812eu
+          - ssc338q_fpv_8812cu
 
           # DigitalFPV
           - ssc30kq_digitalfpv

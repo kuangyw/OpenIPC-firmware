@@ -81,7 +81,7 @@ jobs:
 
           mkdir -p /tmp/ccache
           ln -s /tmp/ccache ${HOME}/.ccache
-          make BOARD=${{matrix.platform}}
+          make BOARD=${{matrix.platform}}_${{matrix.release}}
 
           TIME=$(date -d @${SECONDS} +%M:%S)
           echo TIME=${TIME} >> ${GITHUB_ENV}
@@ -101,7 +101,7 @@ jobs:
 
           # Generate bin firmware
           pushd output/images
-          platform=${{matrix.platform}}
+          platform=${{matrix.platform}}_${{matrix.release}}
           soc=${platform%_*}
 
           uboot=u-boot-$soc-nor.bin

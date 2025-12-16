@@ -157,7 +157,7 @@ jobs:
         if: github.event_name != 'release'
         uses: actions/upload-artifact@v4
         with:
-          name: firmware-${{matrix.platform}}_${{matrix.release}}
+          name: openipc-${{matrix.platform}}_${{matrix.release}}
           path: output/images/openipc*nor*
 
       - name: Upload release firmware

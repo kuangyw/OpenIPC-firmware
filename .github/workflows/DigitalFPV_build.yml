@@ -17,6 +17,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - {"platform": "ssc30kd", "release": "fpv"}
+          - {"platform": "ssc30kd", "release": "fpv_8812cu"}
           - {"platform": "ssc30kq", "release": "fpv"}
           - {"platform": "ssc30kq", "release": "fpv_8188fu"}
           - {"platform": "ssc30kq", "release": "fpv_8192eu"}

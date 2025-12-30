@@ -1,4 +1,4 @@
-name: DigitalFPV_build
+name: DigitalFPV_nand_build
 
 on:
   workflow_dispatch:

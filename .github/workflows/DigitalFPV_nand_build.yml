@@ -106,11 +106,11 @@ jobs:
           platform=${{matrix.platform}}
           soc=${platform%_*}
 
-          uboot=u-boot-$soc-nor.bin
-          ubootenv=u-boot-env-$soc-nor.bin
+          uboot=u-boot-$soc-nand.bin
+          ubootenv=u-boot-env-$soc-nand.bin
           kernel=uImage.$soc
           rootfs=rootfs.squashfs.$soc
-          binnorfw=$(basename ${NORFW%.tgz}).bin
+          binnandfw=$(basename ${NANDFW%.tgz}).bin
 
           # get u-boot
           link=https://github.com/openipc/firmware/releases/download/latest
@@ -133,7 +133,7 @@ jobs:
           fw_setenv -c fw_env.config bootcmdbak 'setenv bootcmd ${cmdnor}; sf probe 0; saveenv; run bootcmd'
           fw_setenv -c fw_env.config cmdnor 'sf probe 0; setenv setargs setenv bootargs ${bootargs}; run setargs; sf read ${baseaddr} ${kernaddr} ${kernsize}; bootm ${baseaddr}'
 
-          fw_setenv -c fw_env.config ubnor '${updatetool} ${baseaddr} u-boot-${soc}-nor.bin && run ubwrite'
+          fw_setenv -c fw_env.config ubnor '${updatetool} ${baseaddr} u-boot-${soc}-nand.bin && run ubwrite'
           fw_setenv -c fw_env.config uknor '${updatetool} ${baseaddr} uImage.${soc} && run ukwrite'
           fw_setenv -c fw_env.config urnor '${updatetool} ${baseaddr} rootfs.squashfs.${soc} && run urwrite'
           fw_setenv -c fw_env.config ubwrite 'sf probe 0; sf erase 0x0 ${kernaddr}; sf write ${baseaddr} 0x0 ${kernaddr}'
@@ -148,11 +148,11 @@ jobs:
           fw_setenv -c fw_env.config netmask '255.255.255.0'
 
           # Generate bin firmware
-          dd if=/dev/zero bs=1K count=5000 status=none | tr '\000' '\377' > ${binnorfw}
-          dd if=${uboot} of=${binnorfw} bs=1K seek=0 conv=notrunc status=none
-          dd if=${ubootenv} of=${binnorfw} bs=1K seek=256 conv=notrunc status=none
-          dd if=${kernel} of=${binnorfw} bs=1K seek=320 conv=notrunc status=none
-          dd if=${rootfs} of=${binnorfw} bs=1K seek=2368 conv=notrunc status=none
+          dd if=/dev/zero bs=1K count=5000 status=none | tr '\000' '\377' > ${binnandfw}
+          dd if=${uboot} of=${binnandfw} bs=1K seek=0 conv=notrunc status=none
+          dd if=${ubootenv} of=${binnandfw} bs=1K seek=256 conv=notrunc status=none
+          dd if=${kernel} of=${binnandfw} bs=1K seek=320 conv=notrunc status=none
+          dd if=${rootfs} of=${binnandfw} bs=1K seek=2368 conv=notrunc status=none
           popd
 
       - name: Upload test firmware to artifact
@@ -160,7 +160,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: openipc-${{matrix.platform}}_${{matrix.release}}
-          path: output/images/openipc*nor*
+          path: output/images/openipc*nand*
 
       - name: Upload release firmware
         if: github.event_name == 'release'
@@ -169,5 +169,5 @@ jobs:
           tag_name: ${{env.TAG_NAME}}
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
-            ${{env.NORFW}}
+            ${{env.NANDFW}}
             output/images/openipc*.bin
